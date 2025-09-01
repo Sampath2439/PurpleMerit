@@ -1,0 +1,17 @@
+multi_agent_marketing_system/
+├── src/
+│   ├── agents.py              # Agent implementations
+│   ├── mcp_server.py          # MCP server implementation
+│   ├── data_processor.py      # Data processing and ML pipeline
+│   ├── tests.py               # Comprehensive test suite
+│   ├── main.py                # Flask application entry point
+│   ├── routes/
+│   │   ├── agents.py          # Agent API endpoints
+│   │   └── user.py            # User management endpoints
+│   ├── models/
+│   │   └── user.py            # Database models
+│   └── static/                # Frontend assets
+├── data/                      # Marketing data files
+├── venv/                      # Python virtual environment
+├── requirements.txt           # Python dependencies
+└── README.md                  # This file

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Agent Marketing System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .agent-status {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <i class="fas fa-robot text-3xl mr-3"></i>
+                    <h1 class="text-2xl font-bold">Multi-Agent Marketing System</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="loginBtn" class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Login
+                    </button>
+                    <button id="registerBtn" class="border-2 border-white text-white px-4 py-2 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                        <i class="fas fa-user-plus mr-2"></i>Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- System Status -->
+        <div class="mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-chart-line mr-2 text-green-500"></i>System Status
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">3</div>
+                        <div class="text-sm text-gray-600">Active Agents</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600">100</div>
+                        <div class="text-sm text-gray-600">Leads Processed</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600">85%</div>
+                        <div class="text-sm text-gray-600">Success Rate</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-orange-600">24/7</div>
+                        <div class="text-sm text-gray-600">Uptime</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agent Dashboard -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Lead Triage Agent -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                        <i class="fas fa-filter mr-2 text-blue-500"></i>Lead Triage Agent
+                    </h3>
+                    <span class="agent-status bg-green-500 text-white px-2 py-1 rounded-full text-xs">Active</span>
+                </div>
+                <p class="text-gray-600 mb-4">Automatically classifies and scores incoming leads using ML models</p>
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Leads Processed:</span>
+                        <span class="font-semibold">45</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Avg Score:</span>
+                        <span class="font-semibold">78.5</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Response Time:</span>
+                        <span class="font-semibold">2.3s</span>
+                    </div>
+                </div>
+                <button class="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors" onclick="testAgent('triage')">
+                    <i class="fas fa-play mr-2"></i>Test Agent
+                </button>
+            </div>
+
+            <!-- Engagement Agent -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                        <i class="fas fa-comments mr-2 text-green-500"></i>Engagement Agent
+                    </h3>
+                    <span class="agent-status bg-green-500 text-white px-2 py-1 rounded-full text-xs">Active</span>
+                </div>
+                <p class="text-gray-600 mb-4">Manages personalized multi-channel outreach and communication</p>
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Messages Sent:</span>
+                        <span class="font-semibold">128</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Response Rate:</span>
+                        <span class="font-semibold">23%</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Channels:</span>
+                        <span class="font-semibold">5</span>
+                    </div>
+                </div>
+                <button class="w-full mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors" onclick="testAgent('engagement')">
+                    <i class="fas fa-play mr-2"></i>Test Agent
+                </button>
+            </div>
+
+            <!-- Campaign Optimization Agent -->
+            <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                        <i class="fas fa-chart-bar mr-2 text-purple-500"></i>Campaign Optimizer
+                    </h3>
+                    <span class="agent-status bg-green-500 text-white px-2 py-1 rounded-full text-xs">Active</span>
+                </div>
+                <p class="text-gray-600 mb-4">Monitors and optimizes campaign performance using data-driven strategies</p>
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Campaigns:</span>
+                        <span class="font-semibold">12</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Avg ROAS:</span>
+                        <span class="font-semibold">2.4x</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Optimizations:</span>
+                        <span class="font-semibold">8</span>
+                    </div>
+                </div>
+                <button class="w-full mt-4 bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors" onclick="testAgent('optimization')">
+                    <i class="fas fa-play mr-2"></i>Test Agent
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-bolt mr-2 text-yellow-500"></i>Quick Actions
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button class="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-600 transition-colors" onclick="quickAction('triage')">
+                    <i class="fas fa-filter text-2xl mb-2"></i>
+                    <div class="font-semibold">Process Lead</div>
+                </button>
+                <button class="bg-green-500 text-white p-4 rounded-lg hover:bg-green-600 transition-colors" onclick="quickAction('engagement')">
+                    <i class="fas fa-envelope text-2xl mb-2"></i>
+                    <div class="font-semibold">Send Message</div>
+                </button>
+                <button class="bg-purple-500 text-white p-4 rounded-lg hover:bg-purple-600 transition-colors" onclick="quickAction('optimization')">
+                    <i class="fas fa-chart-line text-2xl mb-2"></i>
+                    <div class="font-semibold">Analyze Campaign</div>
+                </button>
+                <button class="bg-orange-500 text-white p-4 rounded-lg hover:bg-orange-600 transition-colors" onclick="quickAction('memory')">
+                    <i class="fas fa-brain text-2xl mb-2"></i>
+                    <div class="font-semibold">Memory Query</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-history mr-2 text-gray-500"></i>Recent Activity
+            </h2>
+            <div id="activityLog" class="space-y-3">
+                <!-- Activity items will be populated here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Login</h3>
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                        <input type="text" id="loginUsername" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeModal('loginModal')" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Register</h3>
+                <form id="registerForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                        <input type="text" id="registerUsername" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" id="registerEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="registerPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeModal('registerModal')" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Results Modal -->
+    <div id="testResultsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Test Results</h3>
+                <div id="testResults" class="mb-6">
+                    <!-- Test results will be populated here -->
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="closeModal('testResultsModal')" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
