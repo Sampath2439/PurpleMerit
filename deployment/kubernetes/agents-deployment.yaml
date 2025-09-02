@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agents
+  namespace: marketing-agents
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: agents
+  template:
+    metadata:
+      labels:
+        app: agents
+    spec:
+      containers:
+      - name: triage-agent
+        image: purplemerit/triage-agent:latest
+        ports:
+        - containerPort: 8003
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        envFrom:
+        - configMapRef:
+            name: agent-config
+        - secretRef:
+            name: agent-secrets
+        env:
+        - name: AGENT_TYPE
+          value: "triage"
+
+      - name: engagement-agent
+        image: purplemerit/engagement-agent:latest
+        ports:
+        - containerPort: 8001
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        envFrom:
+        - configMapRef:
+            name: agent-config
+        - secretRef:
+            name: agent-secrets
+        env:
+        - name: AGENT_TYPE
+          value: "engagement"
+
+      - name: optimizer-agent
+        image: purplemerit/optimizer-agent:latest
+        ports:
+        - containerPort: 8002
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        envFrom:
+        - configMapRef:
+            name: agent-config
+        - secretRef:
+            name: agent-secrets
+        env:
+        - name: AGENT_TYPE
+          value: "optimizer"

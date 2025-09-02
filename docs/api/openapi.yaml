@@ -1,0 +1,107 @@
+openapi: 3.0.3
+info:
+  title: Marketing Multi-Agent System API
+  version: 1.0.0
+  description: API for managing marketing agents and campaigns
+
+paths:
+  /api/v1/leads/{leadId}/triage:
+    post:
+      summary: Trigger lead triage
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority:
+                  type: string
+                  enum: [low, medium, high, urgent]
+      responses:
+        '200':
+          description: Triage completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    type: string
+                    enum: [Campaign Qualified, Cold Lead, General Inquiry]
+                  confidence:
+                    type: number
+                    minimum: 0
+                    maximum: 1
+                  score:
+                    type: integer
+                    minimum: 0
+                    maximum: 100
+
+  /api/v1/campaigns/{campaignId}/optimize:
+    post:
+      summary: Trigger campaign optimization
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Optimization results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  optimizations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        description:
+                          type: string
+                        impact_estimate:
+                          type: number
+                  performance_metrics:
+                    type: object
+                    properties:
+                      roas:
+                        type: number
+                      conversion_rate:
+                        type: number
+                      cpl_usd:
+                        type: number
+
+  /api/v1/agents/handoff:
+    post:
+      summary: Execute agent handoff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from_agent:
+                  type: string
+                to_agent:
+                  type: string
+                context:
+                  type: object
+                lead_id:
+                  type: string
+                conversation_id:
+                  type: string
+      responses:
+        '200':
+          description: Handoff completed
+        '400':
+          description: Invalid handoff request

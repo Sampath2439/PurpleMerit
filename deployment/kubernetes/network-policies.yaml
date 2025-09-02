@@ -1,0 +1,20 @@
+# network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: agent-isolation
+spec:
+  podSelector:
+    matchLabels:
+      app: marketing-agent
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: marketing-system
+    ports:
+    - protocol: TCP
+      port: 8080

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-config
+  namespace: marketing-agents
+data:
+  MONGODB_HOST: "mongodb.default.svc.cluster.local"
+  MONGODB_PORT: "27017"
+  REDIS_HOST: "redis.default.svc.cluster.local"
+  REDIS_PORT: "6379"
+  NEO4J_HOST: "neo4j.default.svc.cluster.local"
+  NEO4J_PORT: "7687"
+  OPENAI_MODEL: "gpt-4"
+  OPENAI_MAX_TOKENS: "2048"
+  API_VERSION: "v1"
+  LOG_LEVEL: "INFO"
+  MEMORY_CLEANUP_INTERVAL: "3600"
+  AI_REQUEST_TIMEOUT: "30"
+  AI_RETRY_ATTEMPTS: "3"
+  AI_TEMPERATURE: "0.7"

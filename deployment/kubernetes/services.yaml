@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-server
+  namespace: marketing-agents
+spec:
+  selector:
+    app: mcp-server
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agents
+  namespace: marketing-agents
+spec:
+  selector:
+    app: agents
+  ports:
+  - name: triage
+    port: 8003
+    targetPort: 8003
+  - name: engagement
+    port: 8001
+    targetPort: 8001
+  - name: optimizer
+    port: 8002
+    targetPort: 8002
+  type: ClusterIP

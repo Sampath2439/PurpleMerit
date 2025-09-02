@@ -1,0 +1,36 @@
+FROM python:3.9-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY src/ /app/src/
+
+# Copy configuration files
+COPY config/ /app/config/
+
+# Expose port
+EXPOSE 8000
+
+# Set environment variables for OpenAI and other services
+ENV OPENAI_API_KEY=""
+ENV MONGODB_URI=""
+ENV REDIS_URI=""
+ENV NEO4J_URI=""
+ENV JWT_SECRET_KEY=""
+
+# Command to run the MCP server
+CMD ["python", "src/mcp/mcp_server.py"]
