@@ -33,10 +33,17 @@ app.register_blueprint(user_bp, url_prefix='/api')
 app.register_blueprint(agents_bp, url_prefix='/api/agents')
 
 # Database configuration
-database_dir = os.path.join(os.path.dirname(__file__), '..', 'database')
-os.makedirs(database_dir, exist_ok=True)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(database_dir, 'app.db')}"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+config_name = os.environ.get('FLASK_ENV', 'development')
+from config import get_config
+config_class = get_config(config_name)
+
+# Set configuration
+app.config.from_object(config_class)
+
+# If using SQLite, create directory
+if 'sqlite' in app.config['SQLALCHEMY_DATABASE_URI']:
+    database_dir = os.path.join(os.path.dirname(__file__), '..', 'database')
+    os.makedirs(database_dir, exist_ok=True)
 
 # Initialize database
 db.init_app(app)
