@@ -172,5 +172,3 @@ pytest tests/performance
 - Error tracking
 - Audit trail
 
-## License
-Copyright (c) 2025 Purple Merit Technologies. All rights reserved.
